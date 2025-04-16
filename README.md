@@ -1,22 +1,48 @@
-#  Receipt Processor API
+# 🧾 Receipt Processor API
 
-This project implements a receipt processing API that calculates points based on a set of rules.
+The **Receipt Processor API** is a receipt processing service that enables users to submit receipt data (via a simple API request), extract important details, and calculate points based on predefined rules. The API is designed to be fast, scalable, and easy to use for developers looking to integrate receipt data processing into their systems.
 
-##  Tech Stack
+## 🌟 Features
 
-- Go 1.21
-- Gin Web Framework
-- Docker
+- **Receipt Parsing**: Extracts key details like retailer, purchase date, purchase time, items, and total amount from receipt data.
+- **Points Calculation**: Calculates points based on the receipt details, such as items purchased and total amount.
+- **Unique Receipt ID**: Each successfully processed receipt generates a unique ID.
+- **Data Validation**: Ensures that receipt data is valid before processing.
+- **Export Options**: Provides options to export the processed data in various formats (JSON, CSV).
 
 ---
 
-##  Endpoints
+## 🔧 Tech Stack
+
+This API is built with the following technologies:
+
+- **Go 1.21**: The backend of the application is built using Go, a fast and efficient programming language known for its performance and simplicity.
+- **Gin Web Framework**: A web framework for Go that provides fast and flexible routing for HTTP requests.
+- **Docker**: Used for containerizing the application, making it easier to deploy across different environments without worrying about dependency conflicts.
+- **GORM**: The Object Relational Mapper (ORM) used for interacting with databases to store receipt information.
+
+---
+
+## 📦 Endpoints
 
 ### `POST /receipts/process`
 
-**Description**: Submit a receipt and receive a unique ID.
+This endpoint allows you to submit a receipt, and the server will process it and return a unique receipt ID.
 
-**Example Payload**:
+#### **Description**
+Submit a receipt to be processed. The API extracts key details from the receipt, such as retailer, purchase date, items, total amount, etc. Additionally, points will be calculated based on predefined rules.
+
+#### **Request Payload**
+
+The request should contain the following fields:
+
+- `retailer`: The name of the retailer where the receipt was generated.
+- `purchaseDate`: The date of the purchase in `YYYY-MM-DD` format.
+- `purchaseTime`: The time of purchase in `HH:MM` format.
+- `items`: A list of items purchased, including a short description of each item and the price.
+- `total`: The total amount of the receipt.
+
+**Example Request Payload**:
 
 ```json
 {

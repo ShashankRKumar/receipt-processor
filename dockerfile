@@ -1,33 +1,21 @@
-# Use the official Golang image as the base image
-FROM golang:1.24.2 AS builder
+# Stage 1: Build
+FROM golang:1.21 AS builder
 
-# Set the current working directory inside the container
 WORKDIR /app
 
-# Copy the go.mod and go.sum files and download dependencies
 COPY go.mod go.sum ./
-RUN go mod download
+RUN go mod tidy
 
-# Copy the entire project into the working directory
 COPY . .
+RUN go build -o receipt-processor .
 
-# Build the Go app inside the container
-RUN go build -o main .
-
-# Start a new stage to reduce image size (using a minimal base image)
+# Stage 2: Run
 FROM debian:bullseye-slim
 
-# Install necessary dependencies to run Go binary
-RUN apt-get update && apt-get install -y ca-certificates
+RUN apt-get update && apt-get install -y ca-certificates && apt-get clean
 
-# Set the working directory for the runtime environment
 WORKDIR /app
+COPY --from=builder /app/receipt-processor .
 
-# Copy the compiled binary from the builder stage to the runtime image
-COPY --from=builder /app/main .
-
-# Expose the port the app will run on
 EXPOSE 8080
-
-# Command to run the executable
-CMD ["./main"]
+CMD ["./receipt-processor"]
