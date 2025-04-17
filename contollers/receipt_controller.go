@@ -2,8 +2,9 @@ package controllers
 
 import (
 	"net/http"
-	"receipt-processor/models"
-	"receipt-processor/utils"
+
+	"github.com/ShashankRKumar/receipt-processor/models"
+	"github.com/ShashankRKumar/receipt-processor/utils"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"

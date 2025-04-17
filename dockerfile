@@ -3,19 +3,21 @@ FROM golang:1.21 AS builder
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
-RUN go mod tidy
+COPY go.mod ./
+COPY go.sum ./
+RUN go mod download
 
 COPY . .
+
 RUN go build -o receipt-processor .
 
 # Stage 2: Run
-FROM debian:bullseye-slim
+FROM gcr.io/distroless/base-debian11
 
-RUN apt-get update && apt-get install -y ca-certificates && apt-get clean
+WORKDIR /
 
-WORKDIR /app
 COPY --from=builder /app/receipt-processor .
 
 EXPOSE 8080
-CMD ["./receipt-processor"]
+
+ENTRYPOINT ["/receipt-processor"]

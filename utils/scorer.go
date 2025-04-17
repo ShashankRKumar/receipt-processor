@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"receipt-processor/models"
+	"github.com/ShashankRKumar/receipt-processor/models"
 )
 
 func CalculatePoints(receipt models.Receipt) int {

@@ -1,8 +1,7 @@
 package main
 
 import (
-	"receipt-processor/routes"
-
+	"github.com/ShashankRKumar/receipt-processor/routes"
 	"github.com/gin-gonic/gin"
 )
 

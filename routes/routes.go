@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"receipt-processor/receipt-processor/controllers"
+	"github.com/ShashankRKumar/receipt-processor/controllers"
 
 	"github.com/gin-gonic/gin"
 )

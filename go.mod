@@ -1,4 +1,5 @@
-module receipt-processor
+module github.com/ShashankRKumar/receipt-processor
+
 
 go 1.21
 
